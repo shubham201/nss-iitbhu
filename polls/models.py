@@ -47,7 +47,7 @@ class Family(models.Model):
 	class Meta:
 		ordering = ['head_name']
 
-class Funds(models.Model):
+class Fund(models.Model):
 	source = models.CharField(max_length=30)
 	receiving_date = models.DateField()
 	amount = models.IntegerField()
