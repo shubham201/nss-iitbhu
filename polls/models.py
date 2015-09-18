@@ -1,11 +1,15 @@
 from django.db import models
 
 # Create your models here.
+from django import forms
+
 class Volunteer(models.Model):
+	#volunteer_id = models.CharField(max_length=120,blank=True, null=True)
 	name = models.CharField(max_length=20)
 	address = models.CharField(max_length=100)
 	joining_date = models.DateField()
 	contact = models.IntegerField()
+	email = models.EmailField(blank=True, verbose_name='e-mail')
 	working_hrs = models.IntegerField()
 	def __unicode__(self):
 		return self.name
@@ -24,7 +28,7 @@ class Village(models.Model):
 
 class Camp(models.Model):
 	village = models.ForeignKey(Village)
-	camp_type = models.CharField(max_length=20)
+	camp_type = models.CharField(max_length=20, null=True)
 	date = models.DateField()
 	str_time = models.TimeField()
 	end_time = models.TimeField()
@@ -37,7 +41,7 @@ class Camp(models.Model):
 
 class Family(models.Model):
 	village = models.ForeignKey(Village)
-	head_name = models.CharField(max_length=20)
+	head_name = models.CharField(max_length=20, null=True)
 	address = models.CharField(max_length=100)
 	income = models.IntegerField()
 	members_count = models.IntegerField()
@@ -56,3 +60,8 @@ class Fund(models.Model):
 		return self.source
 	class Meta:
 		ordering = ['source']
+
+class VolunteerForm(forms.ModelForm):
+	class Meta:
+		model = Volunteer
+		exclude = ['']

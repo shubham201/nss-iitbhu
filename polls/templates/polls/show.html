@@ -1,0 +1,27 @@
+<html>
+<head>
+	<h1>{{ title }}</h1>
+</head>
+<body>
+	{% if error %}
+		<ul>
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+		<p>Please submit again</p>
+	{% endif %}
+	<p> 
+		Here is the result: 
+		{% if objs %}
+			<p>Entries in database are : </p>
+			{% for o in objs %}
+					{{ o.name }}
+				<br>
+			{% endfor %}
+		{% else %}
+			<p>There is no entry</p>
+		{% endif %}
+	</p>
+</body>
+</html>
