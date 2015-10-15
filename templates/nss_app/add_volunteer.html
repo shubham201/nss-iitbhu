@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+        <title>NSS</title>
+    </head>
+    <body>
+		<h1>Add a volunteer</h1>
+		<form id="volunteer_form" method='POST' action='/nss/add_volunteer/'>
+			{% csrf_token %}
+			<table>{{ form.as_table }}</table>
+			<!--<button type="submit">Submit</button>-->
+			<input type="submit" name="submit" value="Create Volunteer"/>
+		</form>
+	</body>
+</html>

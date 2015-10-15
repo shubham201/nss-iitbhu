@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NSS</title>
+    </head>
+
+    <body>
+        <h1>{{ volunteer_name }}</h1>
+        {% if volunteer %}
+        <ul>
+            <table>
+                <tr>
+                    <td>{{volunteer.address}}</td>
+                    <td>{{volunteer.joining_date}}</td>
+                    <td>{{volunteer.contact}}</td>
+                    <td>{{volunteer.email}}</td>
+                </tr>
+            </table>
+        </ul>
+        {% else %}
+            The specified volunteer {{ volunteer_name }} does not exist!
+        {% endif %}
+    </body>
+</html>

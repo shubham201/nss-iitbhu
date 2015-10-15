@@ -13,14 +13,30 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
-from polls import views
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^polls/$', include('polls.urls', namespace="polls")),
-    url(r'^result/$', views.result, name="result"),
-    url(r'^input/$', views.thank, name="index")
+    url(r'^nss/', include('nss_app.urls')),
     
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+"""
+urlpatterns = patterns('',
+    # Examples:
+
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^nss/', include('nss_app.urls')), # ADD THIS NEW TUPLE!
+)
+if settings.DEBUG:
+    urlpatterns += patterns(
+        'django.views.static',
+        (r'^media/(?P<path>.*)',
+        'serve',
+        {'document_root': settings.MEDIA_ROOT}), )
+"""

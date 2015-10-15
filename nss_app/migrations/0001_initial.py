@@ -69,11 +69,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='family',
             name='village',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.Village'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='nss_app.Village'),
         ),
         migrations.AddField(
             model_name='camp',
             name='village',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.Village'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='nss_app.Village'),
         ),
     ]
