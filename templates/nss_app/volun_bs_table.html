@@ -1,13 +1,18 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>NSS</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    </head>
 
-{% load staticfiles %}
-
-{% block title %}{{ volunteer_name }}{% endblock %}
-
-{% block body_block %}
-    <h1>{{ volunteer_name }}</h1>
+    <body>
+    <div class="container">
+        <h1>{{ volunteer_name }}</h1>
         <table class="table table-bordered">
-                {% if volunteer %}
             <thead>
                 <tr>
                     <th>Address</th>
@@ -17,6 +22,7 @@
                 </tr>
             </thead>
             <tbody>
+                {% if volunteer %}
                 <tr>
                     <td>{{volunteer.address}}</td>
                     <td>{{volunteer.joining_date}}</td>
@@ -27,7 +33,7 @@
                     The specified volunteer {{ volunteer_name }} does not exist!
                 {% endif %}
             </tbody>
-        </table>
-    <h3>About</h3><br/>
-    <p>-</p>
-{% endblock %}
+        </table>        
+    </div>
+    </body>
+</html>

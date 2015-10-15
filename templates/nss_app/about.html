@@ -1,20 +1,18 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-{% load static %} 
+{% load staticfiles %} 
 
-<html>
+{%block title%}About{% endblock %}
 
-    <head>
-        <title>About</title>
-        <link rel="stylesheet" href="{% static "css/base.css" %}" /> <!-- CSS -->
-        <script src="{% static "js/jquery.js" %}"></script> <!-- JavaScript -->
-    </head>
+{% block body_block %}
+    <div class="page-header">
+                <h1>About</h1>
+            <br/> <a href='/nss/'>Home</a>
+            </div>
+            <div>
+            <p></strong></p>
 
-    <body>
-        About Page
-        <br/> <a href='/nss/'>Home</a>
-        <!--<img src="{% static "images/shubham_bharti.jpg" %}" alt="Picture of Me" />-->
-    </body>
-
-</html>
+            <img  width="762" height="227" src="{% static "images/nss_banner.jpg" %}" alt="Picture of NSS" /> <!-- New line -->
+            </div>
+{% endblock %}
 
