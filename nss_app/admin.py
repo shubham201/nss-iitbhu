@@ -7,6 +7,7 @@ class VolunteerAdmin(admin.ModelAdmin):
 	list_display = ("name","address","contact","email", "working_hrs")
 	search_fields = ["name"]
 	ordering = ["name"]
+	prepopulated_fields = {'slug':('name',)}
 
 class VillageAdmin(admin.ModelAdmin):
 	list_display = ("name", "adoption_date", "family_count", "block")
