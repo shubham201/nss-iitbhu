@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Volunteer, Village, Camp, Family, Fund
+from .models import Volunteer, Village, Camp, Family, Fund, UserProfile
 
 class VolunteerAdmin(admin.ModelAdmin):
 	list_display = ("name","address","contact","email", "working_hrs")

@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 class Volunteer(models.Model):
 	#volunteer_id = models.CharField(max_length=120,blank=True, null=True)
@@ -90,4 +91,16 @@ class Fund(models.Model):
 		return self.source
 	class Meta:
 		ordering = ['source']
+
+class UserProfile(models.Model):
+	# This line is required. Links UserProfile to a User model instance.
+	user = models.OneToOneField(User)
+
+	# The additional attributes we wish to include.
+	website = models.URLField(blank=True)
+	#picture = models.ImageField(upload_to='profile_images', blank=True)
+
+	# Override the __unicode__() method to return out something meaningful!
+	def __str__(self):
+		return self.user.username
 
