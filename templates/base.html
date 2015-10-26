@@ -41,9 +41,8 @@
                             {% if user.is_authenticated %}
             			         <li><a href="{% url 'restricted' %}">Restricted Page</a></li>
                                 <li><a href="{% url 'logout' %}">Logout</a></li>
-                                <li><a href="{% url 'add_volunteer' %}">Add a New Volunteer</a></li>
-                                <li><a href="">Hello {{ user.username }}!</a></li>
                                 <li><a href="{% url 'register' %}">Register Here</a></li>
+                                <li><a href="">Hello {{ user.username }}!</a></li>
                             {% else %}
                         		<li><a href="{% url 'login' %}">Login</a></li>
                         	{% endif %}
@@ -54,6 +53,7 @@
         </div>
         <div class="container-fluid">
             <div class="row">
+                {% if user.is_authenticated %}
                 <div class="col-sm-3 col-md-2 sidebar">
                     {% block side_block %}
                         {% if volunteers %}
@@ -63,6 +63,7 @@
                             </div>
                         </div>
                         <ul class="list-group">
+                            <a href="{% url 'add_volunteer' %}">Register as a Volunteer</a>
                             {% for volunteer in volunteers %}
                             <li class="list-group-item">
                                 <a href="{% url 'volunteer' volunteer.slug %}">{{ volunteer.name }}</a>
@@ -71,9 +72,12 @@
                         </ul>
                         {% endif %}
                     {% endblock %}
-
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                {% endif %}
+                {% if not user.is_authenticated %}
+                <div class="col-sm-12 col-md-12 main">
+                {% endif %}
                     <div>
                         {% block body_block %}This is body_block's default content.{% endblock %}
                     </div>
