@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 
 def index(request):
-	volunteer_list = Volunteer.objects.order_by('name')[:5]
+	volunteer_list = Volunteer.objects.order_by('name')[:]
 	context_dict = {
 		'volunteers' : volunteer_list,
 	}

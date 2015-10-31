@@ -6,17 +6,36 @@
 
 {% block body_block %}
         <h1>National Service Scheme</h1>
+        <!--
         <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
-
+        -->
+        <link href="{% static "css/signin.css" %}" rel="stylesheet">
         <!--<form id="login_form" method="post" action="/nss/login/">-->
+
+        <script src="{% static "js/platform.js" %}" async defer></script>
+        <meta name="google-signin-client_id" content="136509127194-33ac05a3q2cifiksmbb0kmem859rkpnj.apps.googleusercontent.com">
+
         <form id="form-signin" role="form" method="post" action=".">
             {% csrf_token %}
             <h3 class="form-signin-heading">Please sign in</h3>
+            <div>
             Username:
             <input class="form-control" placeholder="Username" id="id_username" maxlength="254" name="username" type="text" required autofocus=""/>
             Password:
             <input class="form-control" placeholder="Password" id="id_password" name="password" type="password" required />
             <br />
             <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit" />Sign in</button>
+            </div>
+            <div class="g-signin2 btn btn-primary" data-onsuccess="onSignIn"></div>
+            <button onclick="signOut();">Sign out</button>
+            <a href="#" onclick="signOut();">Sign out</a>
+            <script>
+              function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                  console.log('User signed out.');
+                });
+              }
+            </script>
         </form>
 {% endblock %}
