@@ -39,12 +39,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='camp',
             name='camp_type',
-            field=models.CharField(max_length=20, null=True),
+            field=models.CharField(max_length=20, blank=False),
         ),
         migrations.AddField(
             model_name='family',
             name='head_name',
-            field=models.CharField(max_length=20, null=True),
+            field=models.CharField(max_length=20, blank=False),
+        ),
+        migrations.AlterField(
+            model_name='family',
+            name='father_name',
+            field=models.CharField(max_length=20, blank=False),
         ),
         migrations.AddField(
             model_name='volunteer',

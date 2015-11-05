@@ -29,6 +29,7 @@ class Migration(migrations.Migration):
             name='Family',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('father_name', models.CharField(max_length=20)),
                 ('address', models.CharField(max_length=100)),
                 ('income', models.IntegerField()),
                 ('members_count', models.IntegerField()),

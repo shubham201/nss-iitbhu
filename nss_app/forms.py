@@ -18,6 +18,8 @@ class VolunteerForm(forms.ModelForm):
 	
 	def clean(self):
 		cleaned_data = self.cleaned_data
+		return cleaned_data
+		'''
 		contact = cleaned_data.get('contact')
 		t = contact
 		count = 0
@@ -28,6 +30,7 @@ class VolunteerForm(forms.ModelForm):
 			return cleaned_data
 		else:
 			raise Exception
+		'''
 
 	class Meta:
 		model = Volunteer
@@ -45,4 +48,4 @@ class UserProfileForm(forms.ModelForm):
 	class Meta:
 		model = UserProfile
 		fields = ('website',)
-		
+#forms.DateField(initial=datetime.date.today)
