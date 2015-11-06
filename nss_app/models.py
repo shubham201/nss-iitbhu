@@ -14,7 +14,7 @@ class Volunteer(models.Model):
 	#contact = models.CharField(max_length=16,validators=[RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")], blank=False) # validators should be a list.... #required
 	email = models.EmailField(blank=False, verbose_name='e-mail') #required
 	#working_hrs = models.IntegerField(null=True,blank=True)
-	slug = models.SlugField(default='',unique=True)
+	slug = models.SlugField(default='volunteer',unique=True)
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name) + slugify(self.contact)
@@ -31,7 +31,7 @@ class Village(models.Model):
 	adoption_date = models.DateField(blank=True)
 	family_count = models.IntegerField(blank=True)
 	block = models.CharField(max_length=30,blank=False) #required
-	slug = models.SlugField(default='',unique=True)
+	slug = models.SlugField(default='village',unique=True)
 
 	def save(self, *args, **kwargs):
 	    self.slug = slugify(self.name) + slugify(self.block)
@@ -51,7 +51,7 @@ class Camp(models.Model):
 	end_time = models.TimeField(blank=True)
 	organising_cost = models.IntegerField(blank=True)
 	details = models.TextField(max_length=200,blank=True)
-	slug = models.SlugField(default='',unique=True)
+	slug = models.SlugField(default='camp',unique=True)
 
 	def save(self, *args, **kwargs):
 	    self.slug = slugify(self.camp_type) + '-' + slugify(self.date)
@@ -71,7 +71,7 @@ class Family(models.Model):
 	income = models.IntegerField(blank=True)
 	members_count = models.IntegerField(blank=False) #required
 	prob_list = models.TextField(max_length=200,blank=True)
-	slug = models.SlugField(default='',unique=True)
+	slug = models.SlugField(default='family',unique=True)
 
 	def save(self, *args, **kwargs):
 	    self.slug = slugify(self.head_name) + slugify(self.members_count)
@@ -88,7 +88,7 @@ class Fund(models.Model):
 	receiving_date = models.DateField(blank=False) #required
 	amount = models.IntegerField(blank=False) #required
 	net_bal = models.IntegerField(blank=False, default=0) #required, initialise it to zero(0)
-	slug = models.SlugField(default='',unique=True)
+	slug = models.SlugField(default='fund',unique=True)
 
 	def save(self, *args, **kwargs):
 	    self.slug = slugify(self.source) + slugify(self.amount)
