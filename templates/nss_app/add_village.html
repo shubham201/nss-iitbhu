@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Village{% endblock %}
+
+{% block body_block %}
+		<form role="form" id="village_form" method='POST' action='/nss/add_village/'>
+
+            <h2 class="form-signin-heading">Add a village</h2>
+			{% csrf_token %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+            {% endfor %}
+            {% ifequal error '1' %}
+                <p>That Record Already Exists or forms cannot be saved</p>
+            {% endifequal %}
+
+            {% ifequal error '2' %}
+                <p>Error Occured. Re-enter the entries</p>
+            {% endifequal %}
+
+            <!--
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+
+            <input type="submit" name="submit" value="Add Volunteer" />
+            
+            
+            <table>{{ form.as_table }}</table>
+			<button type="submit">Submit</button>
+			<input type="submit" name="submit" value="Create Volunteer"/>
+            -->
+            <div class="form-group" >
+                <p class="required"> <label for="id_name">Village Name <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_name" maxlength="20" name="name" type="text"  placeholder="Enter name" required/></p>
+            </div>
+            
+            <div class="form-group" >
+                <p class="required"> <label for="id_block">Block <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_block" name="block" type="text"  placeholder="Enter Block"/></p>
+            </div>
+
+            <div class="form-group" >
+                <p class="required"> <label for="id_adoption_date">Adoption Date <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_adoption_date" name="adoption_date" type="date"  placeholder="Enter Adoption Date" required/></p>
+            </div>
+
+            <div class="form-group" >
+                <p class="required"> <label for="id_family_count">No. Of Families <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_family_count" name="family_count" type="number"  placeholder="Enter No. of Families"/></p>
+            </div>
+
+            <div class="form-group">
+                <span class="text-muted"><em><span style="color:red;">*</span> Indicates required field</em></span>
+            </div> 
+			<br/>
+			<button class="btn btn-primary" type="submit" name="submit">Add Village</button>
+            
+		</form>
+{% endblock %}

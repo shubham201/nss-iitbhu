@@ -79,7 +79,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='family',
-            unique_together=set([('head_name', 'father_name')]),
+            unique_together=set([('head_name', 'members_count')]),
         ),
         migrations.AlterUniqueTogether(
             name='fund',

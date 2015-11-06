@@ -5,31 +5,138 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 import sqlite3
-from .models import Volunteer
-from .forms import  VolunteerForm, UserProfileForm, UserForm
+from .models import Volunteer, Village, Camp, Family, Fund
+from .forms import  VolunteerForm, VillageForm, CampForm, FamilyForm, FundForm, UserProfileForm, UserForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+from django import forms
 
 def index(request):
+	#a = Village.objects.order_by('id')[:]
+	#print(a[0].name)
 	volunteer_list = Volunteer.objects.order_by('name')[:]
+	village_list = Village.objects.order_by('name')[:]
+	camp_list = Camp.objects.order_by('camp_type')[:]
+	family_list = Family.objects.order_by('head_name')[:]
+	fund_list = Fund.objects.order_by('source')[:]
 	context_dict = {
 		'volunteers' : volunteer_list,
+		'villages' : village_list,
+		'camps' : camp_list,
+		'familys' : family_list,
+		'funds' : fund_list,
 	}
 	return render(request, 'nss_app/index.html', context_dict)
 
 def add_volunteer(request):
+	context = RequestContext(request)
 	if request.method == 'POST':
-		form = VolunteerForm(request.POST)
-		if form.is_valid():
-			form.save(commit=True)
-			return index(request)
-		else:
-			form.errors
-
+		try:
+			form = VolunteerForm(request.POST)
+			if form.is_valid():
+				try:
+					form.save(commit=True)
+				except Exception:
+					form = VolunteerForm()
+					return render_to_response('nss_app/add_volunteer.html',{'error':'1','form':form},context)
+				return index(request)
+		except Exception:
+			form = VolunteerForm()
+			return render_to_response('nss_app/add_volunteer.html',{'error':'2','form':form},context)
 	else:
 		form = VolunteerForm()
-		return render(request,'nss_app/add_volunteer.html',{'form':form})
+		#return render_to_response('nss_app/add_volunteer.html',{'error':'3','form':form},context)
+	return render_to_response('nss_app/add_volunteer.html',{'form':form},context)
+
+def add_village(request):
+	context = RequestContext(request)
+	if request.method == 'POST':
+		try:
+			form = VillageForm(request.POST)
+			if form.is_valid():
+				try:
+					form.save(commit=True)
+				except Exception:
+					form = VillageForm()
+					return render_to_response('nss_app/add_village.html',{'error':'1','form':form},context)
+				return index(request)
+		except Exception:
+			form = VillageForm()
+			return render_to_response('nss_app/add_village.html',{'error':'2','form':form},context)	
+	else:
+		form = VillageForm()
+		#return render_to_response('nss_app/add_village.html',{'error':'3','form':form},context)
+	return render_to_response('nss_app/add_village.html',{'form':form},context)
+
+def add_camp(request):
+	context = RequestContext(request)
+	village_list = Village.objects.order_by('id')[:]
+	if request.method == 'POST':
+		try:
+			form = CampForm(request.POST)
+			if form.is_valid():
+				try:
+					form.save(commit=True)
+				except Exception:
+					form = CampForm()
+					return render_to_response('nss_app/add_camp.html',{'form':form,'village_list':village_list,'error':'1'},context)
+				return index(request)	
+		except Exception:
+			form = CampForm()
+			return render_to_response('nss_app/add_camp.html',{'error':'2','form':form,'village_list':village_list},context)			
+
+	else:
+		form = CampForm()
+		#return render_to_response('nss_app/add_camp.html',{'error':'3','form':form},context)
+	return render_to_response('nss_app/add_camp.html',{'form':form,'village_list':village_list},context)
+
+def add_family(request):
+	context = RequestContext(request)
+	village_list = Village.objects.order_by('id')[:]
+	if request.method == 'POST':
+		#try:
+		form = FamilyForm(request.POST)
+		if form.is_valid():
+			form.save(commit=True)
+			"""
+			try:
+				form.save(commit=True)
+			except Exception:
+				form = FamilyForm()
+				return render_to_response('nss_app/add_family.html',{'error':'1','form':form, 'village_list':village_list},context)
+			"""
+			return index(request)
+		else:
+			print(forms.errors)
+	else:
+		form = FamilyForm()
+		#return render_to_response('nss_app/add_family.html',{'error':'3','form':form},context)
+	return render_to_response('nss_app/add_family.html',{'form':form, 'village_list':village_list},context)
+
+def add_fund(request):
+	context = RequestContext(request)
+	if request.method == 'POST':
+		try:
+			form = FundForm(request.POST)
+			if form.is_valid():
+				try:
+					form.save(commit=True)
+				except Exception:
+					form = FundForm()
+					return render_to_response('nss_app/add_fund.html',{'error':'1','form':form},context)
+				return index(request)
+		except Exception:
+			form = FundForm()
+			return render_to_response('nss_app/add_fund.html',{'error':'2','form':form},context)			
+
+	else:
+		form = FundForm()
+		#return render_to_response('nss_app/add_fund.html',{'error':'3','form':form},context)
+	return render_to_response('nss_app/add_fund.html',{'form':form},context)
+
 
 
 def about(request):
@@ -105,7 +212,7 @@ def camp(request, camp_name_slug):
 	    # If we can't, the .get() method raises a DoesNotExist exception.
 	    # So the .get() method returns one model instance or raises an exception.
 		camp = Camp.objects.get(slug=camp_name_slug)
-		context_dict['camp_name'] = camp.name
+		context_dict['camp_name'] = camp.camp_type
 		context_dict['camp'] = camp
 	except Camp.DoesNotExist:
 		# We get here if we didn't find the specified category.
@@ -123,8 +230,8 @@ def family(request, family_name_slug):
 		# Can we find a category name slug with the given name?
 	    # If we can't, the .get() method raises a DoesNotExist exception.
 	    # So the .get() method returns one model instance or raises an exception.
-		family = Famliy.objects.get(slug=family_name_slug)
-		context_dict['family_name'] = family.name
+		family = Family.objects.get(slug=family_name_slug)
+		context_dict['family_name'] = family.head_name
 		context_dict['family'] = family
 	except Family.DoesNotExist:
 		# We get here if we didn't find the specified category.
@@ -143,7 +250,7 @@ def fund(request, fund_name_slug):
 	    # If we can't, the .get() method raises a DoesNotExist exception.
 	    # So the .get() method returns one model instance or raises an exception.
 		fund = Fund.objects.get(slug=fund_name_slug)
-		context_dict['fund_name'] = fund.name
+		context_dict['fund_name'] = fund.source
 		context_dict['fund'] = fund
 	except Fund.DoesNotExist:
 		# We get here if we didn't find the specified category.

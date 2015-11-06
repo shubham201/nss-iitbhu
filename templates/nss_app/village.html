@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}{{ village_name }}{% endblock %}
+
+{% block body_block %}
+    <h1>{{ village_name }}</h1>
+        <table class="table table-bordered">
+                {% if village %}
+            <thead>
+                <tr>
+                    <th>Adoption Date</th>
+                    <th>Block</th>
+                    <th>No. of Families</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{village.adoption_date}}</td>
+                    <td>{{village.block}}</td>
+                    <td>{{village.family_count}}</td>
+                </tr>
+                {% else %}
+                    The specified village {{ village_name }} does not exist!
+                {% endif %}
+            </tbody>
+        </table>
+    <h3>About</h3><br/>
+    <p>-</p>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Family{% endblock %}
+
+{% block body_block %}
+		<form role="form" id="family_form" method='POST' action='/nss/add_family/'>
+
+            <h2>Add a Family</h2>
+			{% csrf_token %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+            {% endfor %}
+            <!--
+            {% ifequal error '1' %}
+                <p>That Record Already Exists or forms cannot be saved</p>
+            {% endifequal %}
+            -->
+            {% ifequal error '2' %}
+                <p>Error Occured. Re-enter the entries</p>
+            {% endifequal %}
+
+
+            <div class="form-group" >
+                <p> <label for="id_village">Village Name <span style="color:red;">*</span></label>
+                <select class="form-control" id="id_village" name="village">
+                    <option value selected="selected">-------</option>
+                    {% for village in village_list %}
+                        <option value="{{village.id}}">{{village.id}}: {{village.name}}</option>
+                    {% endfor %}
+                </select>
+                </p>
+            </div>
+
+            <div class="form-group" >
+                <p class="required"> <label for="id_head_name">Head Name <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_head_name" maxlength="20" name="head_name" type="text"  placeholder="Enter Head Name" required/></p>
+            </div>
+            <!--
+            <div class="form-group" >
+                <p class="required"> <label for="id_father_name">Father Name <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_father_name" maxlength="20" name="father_name" type="text"  placeholder="Enter Father Name" required/></p>
+            </div>
+            -->
+            <div class="form-group" >
+                <p> <label for="id_address">Address <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_address" maxlength="100" name="address" type="text"  placeholder="Enter address"/></p>
+            </div>
+
+            <div class="form-group" >
+                <p> <label for="id_income">Income</span></label>
+                <input class="form-control"  id="id_income" name="income" type="number"  placeholder="Enter Income" /></p>
+            </div>
+
+            <div class="form-group" >
+                <p> <label for="id_members_count">No. of Members</span></label>
+                <input class="form-control"  id="id_members_count" name="members_count" type="number"  placeholder="Enter No. of Members" /></p>
+            </div>
+
+            <div class="form-group" >
+                <p> <label for="id_prob_list">Problem List</span></label>
+                <input class="form-control"  id="id_prob_list" name="prob_list" type="text"  placeholder="Enter Your Problems Here" /></p>
+            </div>
+
+            <div class="form-group">
+                <span class="text-muted"><em><span style="color:red;">*</span> Indicates required field</em></span>
+            </div> 
+			<br/>
+			<button class="btn btn-primary" type="submit" name="submit">Add Family</button>
+            
+            <input type="submit" name="submit" value="Add Family" />
+		</form>
+{% endblock %}

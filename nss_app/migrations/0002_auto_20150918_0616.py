@@ -46,11 +46,6 @@ class Migration(migrations.Migration):
             name='head_name',
             field=models.CharField(max_length=20, blank=False),
         ),
-        migrations.AlterField(
-            model_name='family',
-            name='father_name',
-            field=models.CharField(max_length=20, blank=False),
-        ),
         migrations.AddField(
             model_name='volunteer',
             name='email',

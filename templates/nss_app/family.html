@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}{{ family_name }}{% endblock %}
+
+{% block body_block %}
+    <h1>{{ family_name }}</h1>
+        <table class="table table-bordered">
+                {% if family %}
+            <thead>
+                <tr>
+                    <th>Head_name</th>
+                    <th>Address</th>
+                    <th>Income</th>
+                    <th>No. of Members</th>
+                    <th>Problems</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{family.head_name}}</td>
+                    <td>{{family.address}}</td>
+                    <td>{{family.income}}</td>
+                    <td>{{family.members_count}}</td>
+                    <td>{{family.problems}}</td>
+                </tr>
+                {% else %}
+                    The specified family {{ family_name }} does not exist!
+                {% endif %}
+            </tbody>
+        </table>
+    <h3>About</h3><br/>
+    <p>-</p>
+{% endblock %}

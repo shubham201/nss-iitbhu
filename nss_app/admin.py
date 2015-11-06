@@ -4,7 +4,7 @@ from django.contrib import admin
 from .models import Volunteer, Village, Camp, Family, Fund, UserProfile
 
 class VolunteerAdmin(admin.ModelAdmin):
-	list_display = ("id","name","address","contact","email", "working_hrs", "joining_date")
+	list_display = ("id","name","address","contact","email", "joining_date")
 	search_fields = ["name"]
 	ordering = ["name"]
 	prepopulated_fields = {'slug':('name',)}
@@ -20,7 +20,7 @@ class CampAdmin(admin.ModelAdmin):
 	prepopulated_fields = {'slug':('camp_type',)}
 
 class FamilyAdmin(admin.ModelAdmin):
-	list_display = ("id",'village', 'head_name', 'father_name', 'address', 'income', 'members_count', 'prob_list')
+	list_display = ("id",'village', 'head_name', 'address', 'income', 'members_count', 'prob_list')
 	ordering = ["village"]
 	prepopulated_fields = {'slug':('head_name',)}
 

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Fund{% endblock %}
+
+{% block body_block %}
+		<form role="form" id="fund_form" method='POST' action='/nss/add_fund/'>
+
+            <h2>Add a Fund Received</h2>
+			{% csrf_token %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+            {% endfor %}
+            {% ifequal error '1' %}
+                <p>That Record Already Exists or forms cannot be saved</p>
+            {% endifequal %}
+
+            {% ifequal error '2' %}
+                <p>Error Occured. Re-enter the entries</p>
+            {% endifequal %}
+
+
+            
+            <div class="form-group" >
+                <p class="required"> <label for="id_source">Source Name <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_source" maxlength="20" name="source" type="text"  placeholder="Enter Source Name" required/></p>
+            </div>
+            
+            <div class="form-group" >
+                <p class="required"> <label for="id_receiving_date">Receiving Date <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_receiving_date" name="receiving_date" type="date"  placeholder="Enter Receiving Date"/></p>
+            </div>
+
+            <div class="form-group" >
+                <p class="required"> <label for="id_amount">Amount <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_amount" name="amount" type="number"  placeholder="Enter Amount" required/></p>
+            </div>
+
+            <div class="form-group">
+                <span class="text-muted"><em><span style="color:red;">*</span> Indicates required field</em></span>
+            </div> 
+			<br/>
+			<button class="btn btn-primary" type="submit" name="submit">Add Fund</button>
+            
+		</form>
+{% endblock %}

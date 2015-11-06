@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Camp{% endblock %}
+
+{% block body_block %}
+		<form role="form" id="camp_form" method='POST' action='/nss/add_camp/'>
+
+            <h2>Add a Camp</h2>
+			{% csrf_token %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+            {% endfor %}
+            {% ifequal error '1' %}
+                <p>That Record Already Exists or forms cannot be saved</p>
+            {% endifequal %}
+
+            {% ifequal error '2' %}
+                <p>Error Occured. Re-enter the entries</p>
+            {% endifequal %}
+
+            <!--
+            <div>
+                {{form.fields.items}}
+            </div>
+            
+
+            <div>
+            {% for name,field in form.fields.items %}
+                {{name}}
+                {{field}}
+            {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <table>{{ form.as_table }}</table>
+                <button type="submit">Submit</button>
+                <input type="submit" name="submit" value="Add Camp"/>
+            </div>
+            -->
+            
+            <div class="form-group" >
+                <p> <label for="id_village">Village Name <span style="color:red;">*</span></label>
+                <select class="form-control" id="id_village" name="village">
+                    <option value selected="selected">-------</option>
+                    {% for village in village_list %}
+                        <option value="{{village.id}}">{{village.id}}: {{village.name}}</option>
+                    {% endfor %}
+                </select>
+                </p>
+            </div>
+
+            <div class="form-group" >
+                <p class="required"> <label for="id_camp_type">Camp Type <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_camp_type" maxlength="20" name="camp_type" type="text"  placeholder="Enter Camp Type" required/></p>
+            </div>
+
+            <div class="form-group" >
+                <p class="required"> <label for="id_date">Camp Date <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_date" name="date" type="date"  placeholder="Enter Date" required/></p>
+            </div>
+
+            <div class="form-group" >
+                <p> <label for="id_strt_time">Start Time  <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_strt_time" name="strt_time" type="time"  placeholder="Enter Start Time" /></p>
+            </div>
+
+            <div class="form-group" >
+                <p> <label for="id_end_time">End Time  <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_end_time" name="end_time" type="time"  placeholder="Enter End Time" /></p>
+            </div>
+
+            <div class="form-group" >
+                <p> <label for="id_organising_cost">Organising Cost <span style="color:red;">*</span></span></label>
+                <input class="form-control"  id="id_organising_cost" name="organising_cost" type="number"  placeholder="Enter Organising Cost" /></p>
+            </div>
+
+            <div class="form-group" >
+                <p> <label for="id_details">Details</label>
+                <input class="form-control"  id="id_details" maxlength="200" name="details" type="text"  placeholder="Enter Details"/></p>
+            </div>
+
+            <div class="form-group">
+                <span class="text-muted"><em><span style="color:red;">*</span> Indicates required field</em></span>
+            </div> 
+			<br/>
+			<button class="btn btn-primary" type="submit" name="submit">Add Camp</button>
+            
+            <input type="submit" name="submit" value="Add Camp" />
+		</form>
+{% endblock %}

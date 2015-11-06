@@ -3,12 +3,41 @@
 {% block title %}Add Volunteer{% endblock %}
 
 {% block body_block %}
-		<form role="form" id="volunteer_form" method='POST' action='.'>
+		<form role="form" id="volunteer_form" method='POST' action='/nss/add_volunteer/'>
+
+            <h2 class="form-signin-heading">Add a volunteer</h2>
 			{% csrf_token %}
-			<h2 class="form-signin-heading">Add a volunteer</h2>
-			<!--<table>{{ form.as_table }}</table>
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+            {% endfor %}
+            {% ifequal error '1' %}
+                <p>That Record Already Exists or forms cannot be saved</p>
+            {% endifequal %}
+
+            {% ifequal error '2' %}
+                <p>Error Occured. Re-enter the entries</p>
+            {% endifequal %}
+
+
+
+            <!--
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+
+            <input type="submit" name="submit" value="Add Volunteer" />
+            
+            
+            <table>{{ form.as_table }}</table>
 			<button type="submit">Submit</button>
-			<input type="submit" name="submit" value="Create Volunteer"/>-->
+			<input type="submit" name="submit" value="Create Volunteer"/>
+            -->
             <div class="form-group" >
                 <p class="required"> <label for="id_name">Name <span style="color:red;">*</span></label>
                 <input class="form-control"  id="id_name" maxlength="30" name="name" type="text"  placeholder="Enter name" required/></p>
@@ -18,27 +47,25 @@
                 <p class="required"> <label for="id_contact">Contact <span style="color:red;">*</span></label>
                 <input class="form-control"  id="id_contact" maxlength="10" name="contact" type="number"  placeholder="Enter contact" required/></p>
             </div>
-            <div class="form-group" >
-                <p class="required"> <label for="id_address">Address</label>
-                <input class="form-control"  id="id_address" maxlength="30" name="address" type="text"  placeholder="Enter address"/></p>
-            </div>
-            <div class="form-group" >
-                <p class="required"> <label for="id_joining_date">Joining Date</label>
-                <input class="form-control"  id="id_joining_date" name="joining_date" type="date"  placeholder="Enter joining date"/></p>
-            </div>
 
             <div class="form-group" >
-                <p class="required"> <label for="id_email">Email</label>
-                <input class="form-control"  id="id_email" maxlength="30" name="email" type="email"  placeholder="Enter email"/></p>
+                <p class="required"> <label for="id_email">Email <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_email" maxlength="30" name="email" type="email"  placeholder="Enter email" required/></p>
             </div>
             <div class="form-group" >
-                <p class="required"> <label for="id_working_hrs">Working Hours</label>
-                <input class="form-control"  id="id_working_hrs" maxlength="5" name="working_hrs" type="number"  placeholder="Enter working hrs"/></p>
+                <p class="required"> <label for="id_address">Address <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_address" maxlength="30" name="address" type="text"  placeholder="Enter address" required/></p>
             </div>
+            <div class="form-group" >
+                <p class="required"> <label for="id_joining_date">Joining Date <span style="color:red;">*</span></label>
+                <input class="form-control"  id="id_joining_date" name="joining_date" type="date"  placeholder="Enter joining date" required/></p>
+            </div>
+            
             <div class="form-group">
                 <span class="text-muted"><em><span style="color:red;">*</span> Indicates required field</em></span>
             </div> 
 			<br/>
 			<button class="btn btn-primary" type="submit" name="submit">Add Volunteer</button>
+            
 		</form>
 {% endblock %}
