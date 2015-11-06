@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^nss/', include('nss_app.urls')),
-    
+    url(r'^accounts/', include('registration.backends.default.urls')),
 ]
 
 if settings.DEBUG:

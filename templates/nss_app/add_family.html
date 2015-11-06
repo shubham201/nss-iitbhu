@@ -10,11 +10,11 @@
             {% for field in form.visible_fields %}
                 {{ field.errors }}
             {% endfor %}
-            <!--
+            
             {% ifequal error '1' %}
                 <p>That Record Already Exists or forms cannot be saved</p>
             {% endifequal %}
-            -->
+            
             {% ifequal error '2' %}
                 <p>Error Occured. Re-enter the entries</p>
             {% endifequal %}

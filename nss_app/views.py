@@ -97,20 +97,18 @@ def add_family(request):
 	context = RequestContext(request)
 	village_list = Village.objects.order_by('id')[:]
 	if request.method == 'POST':
-		#try:
-		form = FamilyForm(request.POST)
-		if form.is_valid():
-			form.save(commit=True)
-			"""
-			try:
-				form.save(commit=True)
-			except Exception:
-				form = FamilyForm()
-				return render_to_response('nss_app/add_family.html',{'error':'1','form':form, 'village_list':village_list},context)
-			"""
-			return index(request)
-		else:
-			print(forms.errors)
+		try:
+			form = FamilyForm(request.POST)
+			if form.is_valid():
+				try:
+					form.save(commit=True)
+				except Exception:
+					form = FamilyForm()
+					return render_to_response('nss_app/add_family.html',{'error':'1','form':form, 'village_list':village_list},context)
+				return index(request)
+		except Exception:
+			form = FamilyForm()
+			return render_to_response('nss_app/add_family.html',{'error':'2', 'form':form, 'village_list':village_list},context)
 	else:
 		form = FamilyForm()
 		#return render_to_response('nss_app/add_family.html',{'error':'3','form':form},context)
